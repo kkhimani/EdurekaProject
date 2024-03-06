@@ -3,7 +3,7 @@ FROM maven:3-jdk-8-alpine AS build
 
 
 # Build Stage
-WORKDIR /home/edureka/Project
+WORKDIR /opt/app
 
 COPY ./ /opt/app
 RUN mvn clean install -DskipTests
