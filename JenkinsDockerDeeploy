@@ -1,5 +1,7 @@
 node {
-    def WORKSPACE = "home/edureka/Project"
+    
+    def WORKSPACE = "/var/lib/jenkins/workspace/DeployAddressBook_master"
+
     def dockerImageTag = "addressbook-deploy${env.BUILD_NUMBER}"
     try{
         stage('Clone Repo') {
