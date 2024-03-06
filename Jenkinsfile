@@ -10,7 +10,7 @@ pipeline{
 	       agent{label 'JenkinsSlave1'}
                steps{
 		 echo 'cloning..'
-                 git 'https://github.com/Sonal0409/DevOpsClassCodes.git'
+                 git 'https://github.com/kkhimani/EdurekaProject.git'
               }
           }
           stage('Compile'){
