@@ -1,15 +1,24 @@
-pipeline{
+pipeline {
     tools{
+        jdk 'myjava'
         maven 'mymaven'
     }
-    agent any
-    stages{
-        stage('clone repo'){
-            steps{
-                git 'https://github.com/Sonal0409/DevOpsCodeDemo.git'
-            }
-        }
-        stage('build the code'){
+	agent any
+      stages{
+           stage('Checkout'){
+	       agent{label 'JenkinsSlave1'}
+               steps{
+		 echo 'cloning..'
+                 git 'https://github.com/kkhimani/EdurekaProject.git'
+              }
+          }
+          stage('Compile'){
+              agent{label 'JenkinsSlave1'}
+              steps{
+                  echo 'compiling..'
+                  sh 'mvn compile'
+	      }
+           stage('build the code'){
             steps{
                 sh 'mvn clean install package'
                 
@@ -28,7 +37,7 @@ pipeline{
                 sh 'docker push edu123/AddressBookImage:$BUILD_NUMBER'
             }
         }
-        
-      
-    }
+      }
 }
+
+       
