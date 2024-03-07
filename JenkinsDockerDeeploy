@@ -5,18 +5,22 @@ node {
     def dockerImageTag = "addressbook-deploy${env.BUILD_NUMBER}"
     try{
         stage('Clone Repo') {
+agent{label 'JenkinsSlave1'}
             git url: 'https://github.com/kkhimani/EdurekaProject.git',
                 branch: 'master'
          }
          stage('Build JAR'){
+agent{label 'JenkinsSlave1'}
                 sh 'mvn -DskipTests clean install package'
         }
         stage('Build docker') {
+agent{label 'JenkinsSlave1'}
              //dockerImage = docker.build("addressbook-deploy:${env.BUILD_NUMBER}")
              sh 'cp ${WORKSPACE}/target/addressbook.war .'
              sh 'docker build -t addressbook-deploy .'
         }
         stage('Deploy docker'){
+agent{label 'JenkinsSlave1'}
               echo "Docker Image Tag Name: ${dockerImageTag}"
               sh "docker stop addressbook-deploy || true && docker rm addressbook-deploy || true"
               sh "docker run --name addressbook-deploy -d -p 8081:8081 addressbook-deploy"
