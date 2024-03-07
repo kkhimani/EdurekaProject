@@ -1,3 +1,7 @@
+import java.util.logging.Logger;
+
+Logger logger = Logger.getLogger('org.example.jobdsl')
+logger.info('Hello from a Job DSL script!')
 node {
     
     def WORKSPACE = "/var/lib/jenkins/workspace/DeployAddressBook_master"
@@ -22,10 +26,15 @@ agent{label 'JenkinsSlave1'}
         stage('Deploy docker'){
 agent{label 'JenkinsSlave1'}
               echo "Docker Image Tag Name: ${dockerImageTag}"
-              sh "docker stop addressbook-deploy || true && docker rm addressbook-deploy || true"
-              sh "docker run --name addressbook-deploy -d -p 8081:8081 addressbook-deploy"
+             // sh "docker stop addressbook-deploy || true && docker rm addressbook-deploy || true"
+              //sh "docker run --name addressbook-deploy -d -p 8081:8081"
+
+                sh 'docker run -d -P 8081:8081 edu123/myaddressbook'
+   
+
         }
     }catch(e){
+logger.error('Error::', e)
         throw e
     }
 }
