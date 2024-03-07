@@ -1,7 +1,7 @@
-import java.util.logging.Logger;
+//import java.util.logging.Logger;
 
-Logger logger = Logger.getLogger('org.example.jobdsl')
-logger.info('Hello from a Job DSL script!')
+//Logger logger = Logger.getLogger('org.example.jobdsl')
+//logger.info('Hello from a Job DSL script!')
 node {
     
     def WORKSPACE = "/var/lib/jenkins/workspace/DeployAddressBook_master"
@@ -34,7 +34,7 @@ agent{label 'JenkinsSlave1'}
 
         }
     }catch(e){
-logger.error('Error::', e)
+//logger.error('Error::', e)
         throw e
     }
 }
