@@ -9,9 +9,7 @@ node {
                 branch: 'master'
          }
          stage('Build JAR'){
-            steps{
-                sh 'mvn clean install package  -DskipTests'
-            }
+                sh 'mvn -DskipTests clean install package'
         }
         stage('Build docker') {
              //dockerImage = docker.build("addressbook-deploy:${env.BUILD_NUMBER}")
