@@ -19,7 +19,7 @@
 
 #ENTRYPOINT ["java","-jar","-Xmx1024M","-Dserver.port=${PORT}","app.jar"]
 
-FROM tomcat:8.0-alpine
+FROM tomcat:9.0-alpine
 COPY addressbook.war /usr/local/tomcat/webapps
 #CMD ["catalina.sh", "run"]
 #EXPOSE 8080
