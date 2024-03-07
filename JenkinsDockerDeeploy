@@ -8,13 +8,20 @@ node {
             git url: 'https://github.com/kkhimani/EdurekaProject.git',
                 branch: 'master'
          }
+         stage('Build JAR'){
+            steps{
+                sh 'mvn clean install package  -DskipTests'
+            }
+        }
         stage('Build docker') {
-             dockerImage = docker.build("addressbook-deploy:${env.BUILD_NUMBER}")
+             //dockerImage = docker.build("addressbook-deploy:${env.BUILD_NUMBER}")
+             sh 'cp ${WORKSPACE}/target/addressbook.jar .'
+             sh 'docker build -t addressbook-deploy .'
         }
         stage('Deploy docker'){
               echo "Docker Image Tag Name: ${dockerImageTag}"
               sh "docker stop addressbook-deploy || true && docker rm addressbook-deploy || true"
-              sh "docker run --name addressbook-deploy -d -p 8081:8081 addressbook-deploy:${env.BUILD_NUMBER}"
+              sh "docker run --name addressbook-deploy -d -p 8081:8081 addressbook-deploy"
         }
     }catch(e){
         throw e
