@@ -13,7 +13,7 @@ node {
         }
         stage('Build docker') {
              //dockerImage = docker.build("addressbook-deploy:${env.BUILD_NUMBER}")
-             sh 'cp ${WORKSPACE}/target/addressbook.jar .'
+             sh 'cp ${WORKSPACE}/target/addressbook.war .'
              sh 'docker build -t addressbook-deploy .'
         }
         stage('Deploy docker'){
